@@ -59,7 +59,6 @@ public class SimpleLinkedListTest {
         assertThat(it.hasNext(), Is.is(true));
     }
 
-    @Ignore
     @Test
     public void whenAddIterNextOneNextTwo() {
         LinkedList<Integer> list = new SimpleLinkedList<>();
@@ -70,7 +69,6 @@ public class SimpleLinkedListTest {
         assertThat(it.next(), Is.is(2));
     }
 
-    @Ignore
     @Test
     public void whenGetIteratorTwiceThenEveryFromBegin() {
         LinkedList<Integer> list = new SimpleLinkedList<>();
