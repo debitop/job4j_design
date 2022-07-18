@@ -45,8 +45,8 @@ public class SimpleMap<K, V> implements Map<K, V> {
         MapEntry<K, V>[] expandTable = new MapEntry[capacity];
         for (MapEntry t : table) {
             if (t != null) {
-                int i = indexFor(hash(t.key.hashCode()));
-                expandTable[i] = t;
+                int index = indexFor(hash(t.key.hashCode()));
+                expandTable[index] = t;
             }
         }
         table = expandTable;
