@@ -1,6 +1,8 @@
 package ru.job4j.map;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class SimpleMap<K, V> implements Map<K, V> {
 
@@ -16,34 +18,84 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        return false;
+        boolean rsl = false;
+        if ((float) count / capacity >= LOAD_FACTOR) {
+            expand();
+        }
+        int index = indexFor(hash(key.hashCode()));
+        if (table[index] == null) {
+            table[index] = new MapEntry<>(key, value);
+            rsl = true;
+            count++;
+            modCount++;
+        }
+        return rsl;
     }
 
     private int hash(int hashCode) {
-        return 0;
+        return hashCode ^ hashCode >>> capacity;
     }
 
     private int indexFor(int hash) {
-        return 0;
+        return hash & (capacity - 1);
     }
 
     private void expand() {
-
+        capacity *= 2;
+        MapEntry<K, V>[] expandTable = new MapEntry[capacity];
+        for (MapEntry t : table) {
+            if (t != null) {
+                int i = indexFor(hash(t.key.hashCode()));
+                expandTable[i] = t;
+            }
+        }
+        table = expandTable;
     }
 
     @Override
     public V get(K key) {
-        return null;
+        int i = indexFor(hash(key.hashCode()));
+        return table[i] != null ? table[i].value : null;
     }
 
     @Override
     public boolean remove(K key) {
-        return false;
+        int index = indexFor(hash(key.hashCode()));
+        boolean rsl = false;
+        if (table[index] != null) {
+            table[index] = null;
+            count--;
+            modCount++;
+            rsl = true;
+        }
+        return rsl;
     }
 
     @Override
     public Iterator<K> iterator() {
-        return null;
+        return new Iterator<>() {
+            private final int expectedModCount = modCount;
+            private int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                while (index < capacity && table[index] == null) {
+                    index++;
+                }
+                return index < capacity;
+            }
+
+            @Override
+            public K next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                return table[index++].key;
+            }
+        };
     }
 
     private static class MapEntry<K, V> {
