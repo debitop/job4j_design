@@ -1,7 +1,6 @@
 package ru.job4j.set;
 
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 public class SimpleSetTest {
