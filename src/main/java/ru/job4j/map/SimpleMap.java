@@ -3,6 +3,7 @@ package ru.job4j.map;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class SimpleMap<K, V> implements Map<K, V> {
 
@@ -22,7 +23,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
         if ((float) count / capacity >= LOAD_FACTOR) {
             expand();
         }
-        int index = indexFor(hash(key.hashCode()));
+        int index = 0;
+        if (key != null) {
+            index = indexFor(hash(key.hashCode()));
+        }
         if (table[index] == null) {
             table[index] = new MapEntry<>(key, value);
             rsl = true;
@@ -45,7 +49,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
         MapEntry<K, V>[] expandTable = new MapEntry[capacity];
         for (MapEntry t : table) {
             if (t != null) {
-                int index = indexFor(hash(t.key.hashCode()));
+                int index = 0;
+                if (t.key != null) {
+                    index = indexFor(hash(t.key.hashCode()));
+                }
                 expandTable[index] = t;
             }
         }
@@ -54,13 +61,19 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(K key) {
-        int i = indexFor(hash(key.hashCode()));
-        return table[i] != null ? table[i].value : null;
+        int i = 0;
+        if (key != null) {
+            i = indexFor(hash(key.hashCode()));
+        }
+        return table[i] != null && Objects.equals(table[i].key, key) ? table[i].value : null;
     }
 
     @Override
     public boolean remove(K key) {
-        int index = indexFor(hash(key.hashCode()));
+        int index = 0;
+        if (key != null) {
+            index = indexFor(hash(key.hashCode()));
+        }
         boolean rsl = false;
         if (table[index] != null) {
             table[index] = null;
