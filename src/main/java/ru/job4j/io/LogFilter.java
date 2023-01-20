@@ -13,7 +13,7 @@ public class LogFilter {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 String[] s = line.split(" ");
                 int previous = s.length - 1;
-                if (s[previous - 1].equals("404")) {
+                if ("404".equals(s[previous - 1])) {
                     list.add(line);
                 }
             }
@@ -26,6 +26,6 @@ public class LogFilter {
     public static void main(String[] args) {
         LogFilter logFilter = new LogFilter();
         List<String> log = logFilter.filter("data/log.txt");
-        System.out.println(log);
+        log.forEach(System.out::println);
     }
 }
