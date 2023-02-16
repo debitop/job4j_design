@@ -12,7 +12,7 @@ public class PathExample {
         Files.createDirectories(dir);
         Path path = Path.of("path/paths/path.txt");
         Files.createFile(path);
-  //      Files.move(path, Path.of("path/path.txt"));
+        Files.move(path, Path.of("path/path.txt"));
         System.out.println("Файл/директория существует?: " + Files.exists(path));
         System.out.println("Это директория?: " + Files.isDirectory(path));
         System.out.println("Это файл?: " + Files.isRegularFile(path));
@@ -23,7 +23,7 @@ public class PathExample {
         System.out.println("Абсолютный путь к директории: " + dir.toAbsolutePath());
         System.out.println("Доступен для чтения?: " + Files.isReadable(path));
         System.out.println("Доступен для записи?: " + Files.isWritable(path));
- //       Files.delete(dir);
+        Files.delete(dir);
         Path target = Paths.get("path");
         Path path1 = Path.of("path/paths/path1.txt");
         Files.createFile(path1);
