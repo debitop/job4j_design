@@ -1,7 +1,5 @@
 package ru.job4j.io;
 
-import ru.job4j.io.files.SearchFiles;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
