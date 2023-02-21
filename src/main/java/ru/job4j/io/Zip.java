@@ -35,8 +35,7 @@ public class Zip {
         }
     }
 
-    private static void checkArgs(String[] args) {
-        ArgsName arg = ArgsName.of(args);
+    private static void checkArgs(ArgsName arg) {
         if (!Files.isDirectory(Paths.get(arg.get("d")))) {
             throw new IllegalArgumentException("No such directory");
         }
@@ -50,10 +49,11 @@ public class Zip {
     }
 
     public static void main(String[] args) throws IOException {
-
-        checkArgs(args);
+        if (args.length != 3) {
+            throw new IllegalArgumentException("need three arguments");
+        }
         ArgsName arg = ArgsName.of(args);
-
+        checkArgs(arg);
         Zip zip = new Zip();
         List<Path> list = Search.search(Paths.get(arg.get("d")), p -> !p.toFile().getName().endsWith(arg.get("e")));
         zip.packFiles(list, new File(arg.get("o")));
