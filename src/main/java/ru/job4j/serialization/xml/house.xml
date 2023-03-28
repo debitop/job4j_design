@@ -1,0 +1,12 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<house privateHouse="true" size="400">
+    <address>
+        <street>Arbat</street>
+        <town>Moscow</town>
+    </address>
+    <rooms>
+        <room>bedroom</room>
+        <room>kitchen</room>
+        <room>bathroom</room>
+    </rooms>>
+</house>
