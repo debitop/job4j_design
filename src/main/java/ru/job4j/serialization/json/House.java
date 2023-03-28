@@ -1,0 +1,28 @@
+package ru.job4j.serialization.json;
+
+import java.util.Arrays;
+
+public class House {
+
+    private final boolean privateHouse;
+    private final int size;
+    private final Address address;
+    private final String[] rooms;
+
+    public House(boolean privateHouse, int size, Address address, String[] rooms) {
+        this.privateHouse = privateHouse;
+        this.size = size;
+        this.address = address;
+        this.rooms = rooms;
+    }
+
+    @Override
+    public String toString() {
+        return "House{"
+                + "privateHouse=" + privateHouse
+                + ", size=" + size
+                + ", address=" + address
+                + ", rooms=" + Arrays.toString(rooms)
+                + '}';
+    }
+}
