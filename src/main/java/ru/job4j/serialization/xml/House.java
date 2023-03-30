@@ -1,9 +1,6 @@
 package ru.job4j.serialization.xml;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
 @XmlRootElement(name = "house")
@@ -15,6 +12,8 @@ public class House {
     @XmlAttribute
     private int size;
     private Address address;
+    @XmlElementWrapper(name = "rooms")
+    @XmlElement(name = "room")
     private String[] rooms;
 
     public House() {
